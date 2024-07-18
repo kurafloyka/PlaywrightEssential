@@ -23,6 +23,6 @@ jobs:
     - uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: AllureTestResults
+        name: HtmlTestResults
         path: test-results
         retention-days: 3
