@@ -24,5 +24,5 @@ jobs:
       if: always()
       with:
         name: HtmlTestResults
-        path: playwright-report
+        path: playwright-report/
         retention-days: 3
