@@ -7,7 +7,7 @@ test.describe("Amazon Testing", () => {
     //await console.log(await page.title());
     await expect(page).toHaveTitle(testdata.title, { timeout: 5000 });
   });
-  test("Amazon Listing Product", async ({ page }) => {
+  test.only("Amazon Listing Product", async ({ page }) => {
     await page
       .getByRole("link", { name: "Merhaba, Giriş yapın Hesap ve" })
       .waitFor({ state: "visible", timeout: 5000 });
