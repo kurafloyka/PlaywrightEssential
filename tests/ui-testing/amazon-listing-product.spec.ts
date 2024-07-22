@@ -1,5 +1,5 @@
 import test, { expect } from "@playwright/test";
-import { testdata } from "../src/test-data";
+import { testdata } from "../../src/test-data";
 
 test.describe("Amazon Testing", () => {
   test.beforeEach(async ({ page }) => {

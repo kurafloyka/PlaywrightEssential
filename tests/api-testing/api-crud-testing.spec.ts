@@ -1,6 +1,6 @@
 import test, { expect } from "@playwright/test";
-import userController from "../src/controller/user-controller";
-import { data, data2 } from "../config/base-config";
+import userController from "../../src/controller/user-controller";
+import { data, data2 } from "../../config/base-config";
 
 test.describe("API CRUD Testing", () => {
   let createUser;
