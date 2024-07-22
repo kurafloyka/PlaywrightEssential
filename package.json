@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test:api": "playwright test --config=api-playwright.config.ts --project=Chromium",
-    "test:ui": "playwright test --config=ui-playwright.config.ts"
+    "test:ui": "playwright test --config=ui-playwright.config.ts",
+    "test:apicustomreport":"playwright test --config=api-playwright.config.ts --reporter=reporter.ts"
   },
   "keywords": [],
   "author": "",
