@@ -32,7 +32,10 @@ test.describe("Amazon Testing", () => {
     const productDetails = await page.locator("#productTitle").textContent();
     expect(productName?.trim()).toEqual(productDetails?.trim());
     await page.locator("#add-to-cart-button").click();
-    expect(page.getByText(`${productName}`)).toBeVisible();
+    await expect(page.locator(`//h1[contains(text(),"${productDetails?.trim()}")]`)).toBeVisible();
+
+
+    // //h1[contains(text(),"Apple iPhone 12 (128 GB) - Siyah")]
   });
 
   test("Amazon Listing Product Fail Test", async ({ page }) => {
