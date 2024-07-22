@@ -1,50 +1,45 @@
 import test, { expect } from "@playwright/test";
 import { testdata } from "../../src/test-data";
+import { AddToCartPage } from "../../src/pages/add-to-cart/add-to-card";
 
-test.describe("Amazon Testing", () => {
+test.describe("Amazon Add To Cart Testing", () => {
+  
   test.beforeEach(async ({ page }) => {
     await page.goto(testdata.testUrl);
     //await console.log(await page.title());
     await expect(page).toHaveTitle(testdata.title, { timeout: 5000 });
   });
   test.only("Amazon Listing Product", async ({ page }) => {
-    await page
-      .getByRole("link", { name: "Merhaba, Giriş yapın Hesap ve" })
-      .waitFor({ state: "visible", timeout: 5000 });
-    await page
-      .getByRole("link", { name: "Merhaba, Giriş yapın Hesap ve" })
+
+    let addToCartPage = new AddToCartPage(page);
+    await addToCartPage.loginPageButton
+      .waitFor({ state: "visible", timeout: testdata.timeout });
+    await addToCartPage.loginPageButton
       .click();
     await expect.soft(page).toHaveURL(/signin/);
-    await page.pause();
+    
 
-    await page.locator("#ap_email").fill("farukakyol1@icloud.com");
-    await page.locator("//*[@type='submit']").click();
-    await page.locator("#ap_password").fill("Farukakyol1.");
-    await page.locator("#signInSubmit").click();
-    await page.locator("#twotabsearchtextbox").fill("Iphone");
-    await page.locator("#nav-search-submit-button").click();
-    //console.log(await page.locator("//*[@data-cy='title-recipe']/h2").first().textContent());
-    const productName = await page
-      .locator("//*[@data-cy='title-recipe']/h2")
+    //login steps
+    await addToCartPage.usernameInput.fill(testdata.email);
+    await addToCartPage.submitUsernameButton.click();
+    await addToCartPage.passwordInput.fill(testdata.password);
+    await addToCartPage.signInButton.click();
+    await addToCartPage.searchProductInput.fill(testdata.product);
+    await addToCartPage.searchButton.click();
+    
+    //add product to cart
+    const productName = await addToCartPage.firstProduct
       .first()
       .textContent();
-    await page.locator("//*[@data-cy='title-recipe']/h2").first().click();
-    const productDetails = await page.locator("#productTitle").textContent();
+    await addToCartPage.firstProduct.first().click();
+    const productDetails = await addToCartPage.productDetails.textContent();
     expect(productName?.trim()).toEqual(productDetails?.trim());
-    await page.locator("#add-to-cart-button").click();
-    await expect(page.locator(`//h1[contains(text(),"${productDetails?.trim()}")]`)).toBeVisible();
+    await addToCartPage.addToCartButton.click();
 
-
-    // //h1[contains(text(),"Apple iPhone 12 (128 GB) - Siyah")]
+    //check added product
+    const addedProductHeader = await addToCartPage.getAddedProductHeader(`${productDetails?.trim()}`);
+    await expect(addedProductHeader).toBeVisible();
   });
 
-  test("Amazon Listing Product Fail Test", async ({ page }) => {
-    await page
-      .getByRole("link", { name: "Merhaba, Giriş yapın Hesap ve" })
-      .waitFor({ state: "visible", timeout: 5000 });
-    await page
-      .getByRole("link", { name: "MMerhaba, Giriş yapın Hesap ve" })
-      .click();
-    await expect.soft(page).toHaveURL(/signin/);
-  });
+  
 });
