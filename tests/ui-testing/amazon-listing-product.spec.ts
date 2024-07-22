@@ -16,6 +16,23 @@ test.describe("Amazon Testing", () => {
       .click();
     await expect.soft(page).toHaveURL(/signin/);
     await page.pause();
+
+    await page.locator("#ap_email").fill("farukakyol1@icloud.com");
+    await page.locator("//*[@type='submit']").click();
+    await page.locator("#ap_password").fill("Farukakyol1.");
+    await page.locator("#signInSubmit").click();
+    await page.locator("#twotabsearchtextbox").fill("Iphone");
+    await page.locator("#nav-search-submit-button").click();
+    //console.log(await page.locator("//*[@data-cy='title-recipe']/h2").first().textContent());
+    const productName = await page
+      .locator("//*[@data-cy='title-recipe']/h2")
+      .first()
+      .textContent();
+    await page.locator("//*[@data-cy='title-recipe']/h2").first().click();
+    const productDetails = await page.locator("#productTitle").textContent();
+    expect(productName?.trim()).toEqual(productDetails?.trim());
+    await page.locator("#add-to-cart-button").click();
+    expect(page.getByText(`${productName}`)).toBeVisible();
   });
 
   test("Amazon Listing Product Fail Test", async ({ page }) => {
@@ -26,6 +43,5 @@ test.describe("Amazon Testing", () => {
       .getByRole("link", { name: "MMerhaba, Giriş yapın Hesap ve" })
       .click();
     await expect.soft(page).toHaveURL(/signin/);
-    await page.pause();
   });
 });

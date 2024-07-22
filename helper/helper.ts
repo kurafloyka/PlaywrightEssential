@@ -5,4 +5,4 @@ export const login = async (email: string, password: string) => {
   const res = await userController.listUsers();
   //return res.body.token;
   //let  token = await login(config.email, config.password);
-};
+};//assert ekleme gibi
