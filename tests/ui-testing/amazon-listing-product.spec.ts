@@ -18,7 +18,7 @@ test.describe("Amazon Add To Cart Testing", () => {
       .click();
     await expect.soft(page).toHaveURL(/signin/);
     
-
+await page.pause();
     //login steps
     await addToCartPage.usernameInput.fill(testdata.email);
     await addToCartPage.submitUsernameButton.click();
@@ -37,7 +37,7 @@ test.describe("Amazon Add To Cart Testing", () => {
     await addToCartPage.addToCartButton.click();
 
     //check added product
-    const addedProductHeader = await addToCartPage.getAddedProductHeader(`${productDetails?.trim()}`);
+    const addedProductHeader = (await addToCartPage.getAddedProductHeader(`${productDetails?.trim()}`)).first();
     await expect(addedProductHeader).toBeVisible();
   });
 
