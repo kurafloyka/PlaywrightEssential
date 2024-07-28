@@ -55,8 +55,6 @@ test.describe("Insider Test Case", () => {
     //console.log("test "+await el.textContent());
     //}
 
-    
-
     await page.getByRole("link", { name: "See all teams" }).click();
     await page.waitForTimeout(2000);
     const allTeams = page
@@ -67,7 +65,7 @@ test.describe("Insider Test Case", () => {
     expect((await allTeamsName).length).toBe(15);
 
     //for (const el of await allTeams.elementHandles()) {
-      //console.log((await el.textContent())?.trim());
+    //console.log((await el.textContent())?.trim());
     //}
 
     const allTeamsNameInsider = [
@@ -87,41 +85,37 @@ test.describe("Insider Test Case", () => {
       "Partner Support Development",
       "Product Design",
     ];
-    expect((await allTeams.allTextContents()).map(i=>i.trim())).toEqual(allTeamsNameInsider);
-    
+    expect((await allTeams.allTextContents()).map((i) => i.trim())).toEqual(
+      allTeamsNameInsider
+    );
 
-    await expect(page.locator('.elementor-main-swiper')).toBeVisible();
-
-   
+    await expect(page.locator(".elementor-main-swiper")).toBeVisible();
 
     await page.goto("https://useinsider.com/careers/quality-assurance/");
-    
 
-    await page.getByRole('link', { name: 'See all QA jobs' }).click();
+    await page.getByRole("link", { name: "See all QA jobs" }).click();
     await page.waitForLoadState("networkidle");
-    await page.getByRole('textbox', { name: 'All' }).first().click();
+    await page.getByRole("textbox", { name: "All" }).first().click();
     await page.waitForLoadState("networkidle");
-  await page.getByRole('option', { name: 'Istanbul, Turkey' }).click();
-  await page.getByRole('textbox', { name: 'Quality Assurance' }).click();
-  await page.getByRole('option', { name: 'Quality Assurance' }).click();
-    
+    await page.getByRole("option", { name: "Istanbul, Turkey" }).click();
+    await page.getByRole("textbox", { name: "Quality Assurance" }).click();
+    await page.getByRole("option", { name: "Quality Assurance" }).click();
 
-const allPositionsField=page.locator("//*[@id='career-position-list']//span[contains(@class,'position-department')]");
+    const allPositionsField = page.locator(
+      "//*[@id='career-position-list']//span[contains(@class,'position-department')]"
+    );
 
-for (const el of await allPositionsField.elementHandles()) {
+    for (const el of await allPositionsField.elementHandles()) {
       //console.log((await el.textContent())?.trim());
       expect((await el.textContent())?.trim()).toBe("Quality Assurance");
     }
 
+    const allPositionsLocation = page.locator(
+      "//*[@id='career-position-list']//div[contains(@class,'position-location text-large')]"
+    );
 
-
-const allPositionsLocation=page.locator("//*[@id='career-position-list']//div[contains(@class,'position-location text-large')]");
-
-for (const el of await allPositionsLocation.elementHandles()) {
-  
-  expect((await el.textContent())?.trim()).toBe("Istanbul, Turkey");
-}
-
-
+    for (const el of await allPositionsLocation.elementHandles()) {
+      expect((await el.textContent())?.trim()).toBe("Istanbul, Turkey");
+    }
   });
 });
