@@ -9,7 +9,6 @@ class PetController {
       baseURL: baseUrl,
       extraHTTPHeaders: {
         Accept: "application/json",
-        "Content-Type": "application/json",
       },
     });
   }
@@ -22,11 +21,17 @@ class PetController {
     return this.APIRequest.put("", { data });
   }
 
-  readPet(id: number) {
-    return this.APIRequest.get(`/${id}`);
+  async readPet(id: number) {
+    return await this.APIRequest.get(`${id}`);
+
+
+    //const response=await request.get("https://petstore.swagger.io/v2/pet/975056");
+    //console.log(await response.json());
+
   }
 
   deletePet(id: number) {
-    return this.APIRequest.delete(`/${id}`);
+    return this.APIRequest.delete(`${id}`);
   }
 }
+export default new PetController();

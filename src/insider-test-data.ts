@@ -52,7 +52,7 @@ export const allTeamsNameInsider = [
 ];
 
 
-export const baseUrl = "https://petstore.swagger.io/v2/pet";
+export const baseUrl = "https://petstore.swagger.io/v2/pet/";
 
 export const petInfo = {
   id: 12345,
